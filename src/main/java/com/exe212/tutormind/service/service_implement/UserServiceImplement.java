@@ -1,4 +1,4 @@
-package com.exe212.tutormind.service;
+package com.exe212.tutormind.service.service_implement;
 
 import com.exe212.tutormind.Model.DTO.RegisterRequestDTO;
 import com.exe212.tutormind.entity.Role;
@@ -6,6 +6,7 @@ import com.exe212.tutormind.entity.User;
 import com.exe212.tutormind.exception.*;
 import com.exe212.tutormind.repository.RoleRepository;
 import com.exe212.tutormind.repository.UserRepository;
+import com.exe212.tutormind.service.service_interface.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -14,13 +15,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
-import java.time.LocalDateTime;
 import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
 
-public class UserServiceImplement implements UserService{
+public class UserServiceImplement implements UserService {
     @Autowired
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;

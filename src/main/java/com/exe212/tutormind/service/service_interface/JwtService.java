@@ -1,4 +1,4 @@
-package com.exe212.tutormind.service;
+package com.exe212.tutormind.service.service_interface;
 
 import com.exe212.tutormind.entity.User;
 import com.exe212.tutormind.exception.InvalidateException;

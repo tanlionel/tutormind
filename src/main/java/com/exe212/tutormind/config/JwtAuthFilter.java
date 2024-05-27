@@ -2,8 +2,8 @@ package com.exe212.tutormind.config;
 
 import com.exe212.tutormind.exception.InvalidateException;
 import com.exe212.tutormind.exception.UserDoesNotExistException;
-import com.exe212.tutormind.service.JwtService;
-import com.exe212.tutormind.service.UserService;
+import com.exe212.tutormind.service.service_interface.JwtService;
+import com.exe212.tutormind.service.service_interface.UserService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

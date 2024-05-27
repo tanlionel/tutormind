@@ -1,9 +1,11 @@
-package com.exe212.tutormind.service;
+package com.exe212.tutormind.service.service_implement;
 
 import com.exe212.tutormind.entity.User;
 import com.exe212.tutormind.exception.InvalidateException;
 import com.exe212.tutormind.exception.TokenExpiredException;
 import com.exe212.tutormind.exception.UserDoesNotExistException;
+import com.exe212.tutormind.service.service_interface.JwtService;
+import com.exe212.tutormind.service.service_interface.UserService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

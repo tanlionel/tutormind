@@ -1,6 +1,7 @@
 package com.exe212.tutormind.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
@@ -29,6 +30,10 @@ public class Course {
     @Size(max = 1000)
     @Column(name = "simple_description", length = 1000)
     private String simpleDescription;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "tutor_id", nullable = false)
+    private User tutor;
 
     @Column(name = "created_date")
     private Instant createdDate;

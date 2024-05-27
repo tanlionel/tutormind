@@ -18,7 +18,7 @@ public class Profile {
     private Integer id;
 
     @MapsId("userId")
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(optional = false)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
