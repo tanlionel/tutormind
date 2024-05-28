@@ -1,6 +1,7 @@
 package com.exe212.tutormind.entity;
 
 import com.exe212.tutormind.enums.UserRole;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -38,6 +39,7 @@ public class User implements UserDetails {
     @Size(max = 150)
     @NotNull
     @Column(name = "password", nullable = false, length = 150)
+    @JsonIgnore
     private String password;
 
     @Size(max = 100)
