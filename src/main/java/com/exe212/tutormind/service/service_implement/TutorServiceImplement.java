@@ -6,7 +6,7 @@ import com.exe212.tutormind.enums.UserRole;
 import com.exe212.tutormind.exception.UserDoesNotExistException;
 import com.exe212.tutormind.exception.UserDoesNotHavePermission;
 import com.exe212.tutormind.model.users.ProfileDTO;
-import com.exe212.tutormind.model.users.TutorDTO;
+import com.exe212.tutormind.model.users.UserDTO;
 import com.exe212.tutormind.repository.ProfileRepository;
 import com.exe212.tutormind.repository.UserRepository;
 import com.exe212.tutormind.service.service_interface.TutorService;
@@ -25,16 +25,16 @@ public class TutorServiceImplement implements TutorService {
     ProfileRepository profileRepository;
 
     @Override
-    public Page<TutorDTO> getPageableTutor(int pageIndex, int pageSize, String search) {
+    public Page<UserDTO> getPageableTutor(int pageIndex, int pageSize, String search) {
 
                 //DEFAULT TUTOR ROLE IS 1
         Integer tutorRoleId = UserRole.TUTOR.ordinal() + 1;
 
-        Page<TutorDTO> tutorPage = profileRepository
+        Page<UserDTO> tutorPage = profileRepository
                 .findAll(
                         PageRequest.of(pageIndex, pageSize)
                 ).map(
-                                p -> TutorDTO.builder()
+                                p -> UserDTO.builder()
                                         .id(p.getUser().getId())
                                         .email(p.getUser().getEmail())
                                         .phone(p.getUser().getPhone())
@@ -43,27 +43,30 @@ public class TutorServiceImplement implements TutorService {
                                         .address(p.getUser().getAddress())
                                         .gender(p.getUser().getGender())
                                         .role(p.getUser().getRole())
-                                        .personalIntroduction(p.getPersonalIntroduction())
-                                        .personalInformation(p.getPersonalInformation())
-                                        .ratingPoint((p.getRatingPoint() == null ? null : p.getRatingPoint().doubleValue()))
-                                        .build()
+                                        .profile(
+                                                ProfileDTO.builder()
+                                                        .personalIntroduction(p.getPersonalIntroduction())
+                                                        .personalInformation(p.getPersonalInformation())
+                                                        .ratingPoint((p.getRatingPoint() == null ? null : p.getRatingPoint().doubleValue()))
+                                                        .build()
+                                        ).build()
                         );
 
         return tutorPage;
     }
 
     @Override
-    public Page<TutorDTO> getPageableTutor(int pageIndex, int pageSize, String search, List<Integer> subjectIdList) {
+    public Page<UserDTO> getPageableTutor(int pageIndex, int pageSize, String search, List<Integer> subjectIdList) {
         Integer tutorRoleId = UserRole.TUTOR.ordinal() + 1;
 
         if (subjectIdList == null || subjectIdList.isEmpty())
             subjectIdList = null;
 
-        Page<TutorDTO> tutorPage = profileRepository
+        Page<UserDTO> tutorPage = profileRepository
                 .getProfilePagination(
                         PageRequest.of(pageIndex, pageSize), search, subjectIdList
                 ).map(
-                        p -> TutorDTO.builder()
+                        p -> UserDTO.builder()
                                 .id(p.getUser().getId())
                                 .email(p.getUser().getEmail())
                                 .phone(p.getUser().getPhone())
@@ -72,23 +75,26 @@ public class TutorServiceImplement implements TutorService {
                                 .address(p.getUser().getAddress())
                                 .gender(p.getUser().getGender())
                                 .role(p.getUser().getRole())
-                                .personalIntroduction(p.getPersonalIntroduction())
-                                .personalInformation(p.getPersonalInformation())
-                                .ratingPoint((p.getRatingPoint() == null ? null : p.getRatingPoint().doubleValue()))
-                                .build()
+                                .profile(
+                                        ProfileDTO.builder()
+                                                .personalIntroduction(p.getPersonalIntroduction())
+                                                .personalInformation(p.getPersonalInformation())
+                                                .ratingPoint((p.getRatingPoint() == null ? null : p.getRatingPoint().doubleValue()))
+                                                .build()
+                                ).build()
                 );
 
         return tutorPage;
     }
 
     @Override
-    public TutorDTO getTutorById(Integer id) throws Exception {
+    public UserDTO getTutorById(Integer id) throws Exception {
         if (id == null)
             throw new UserDoesNotExistException();
 
         Profile profile = profileRepository.findById(id).get();
 
-        TutorDTO tutor = TutorDTO.builder()
+        UserDTO tutor = UserDTO.builder()
                 .id(profile.getUser().getId())
                 .email(profile.getUser().getEmail())
                 .phone(profile.getUser().getPhone())
@@ -97,16 +103,20 @@ public class TutorServiceImplement implements TutorService {
                 .address(profile.getUser().getAddress())
                 .gender(profile.getUser().getGender())
                 .role(profile.getUser().getRole())
-                .personalIntroduction(profile.getPersonalIntroduction())
-                .personalInformation(profile.getPersonalInformation())
-                .ratingPoint((profile.getRatingPoint() == null ? null : profile.getRatingPoint().doubleValue()))
+                .profile(
+                        ProfileDTO.builder()
+                                .personalIntroduction(profile.getPersonalIntroduction())
+                                .personalInformation(profile.getPersonalInformation())
+                                .ratingPoint((profile.getRatingPoint() == null ? null : profile.getRatingPoint().doubleValue()))
+                                .build()
+                )
                 .build();
 
         return tutor;
     }
 
     @Override
-    public TutorDTO createOrUpdateTutorProfile(String email, ProfileDTO profileDto) throws Exception {
+    public UserDTO createOrUpdateTutorProfile(String email, ProfileDTO profileDto) throws Exception {
         User user = userRepository.findByEmail(email);
 
         if (user == null || !user.getIsActive())

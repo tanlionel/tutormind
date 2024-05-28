@@ -1,12 +1,7 @@
 package com.exe212.tutormind.model.users;
 
 import com.exe212.tutormind.entity.Role;
-import com.exe212.tutormind.entity.User;
-import jakarta.persistence.*;
-import jakarta.validation.constraints.Size;
 import lombok.*;
-
-import java.math.BigDecimal;
 
 @Data
 @Builder
@@ -14,7 +9,7 @@ import java.math.BigDecimal;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class TutorDTO {
+public class UserDTO {
     private Integer id;
 
     private String email;
@@ -31,9 +26,10 @@ public class TutorDTO {
 
     private Role role;
 
-    private String personalIntroduction;
-
-    private String personalInformation;
-
-    private Double ratingPoint;
+    private ProfileDTO profile;
+//    private String personalIntroduction;
+//
+//    private String personalInformation;
+//
+//    private Double ratingPoint;
 }
