@@ -11,7 +11,12 @@ import org.springframework.stereotype.Repository;
 public interface UserRepository extends JpaRepository<User,Integer> {
     User findByEmail(String email);
     User findUserByUsername(String username);
+<<<<<<< Updated upstream
     Page<User> findUserByRoleId(Pageable pageable,
                                 String search,
                                 Integer roleId);
+=======
+    Page<User> findByRoleNameContainingAndFullNameContaining(String roleName, String search, Pageable pageable);
+
+>>>>>>> Stashed changes
 }

@@ -1,14 +1,21 @@
 package com.exe212.tutormind.service.service_implement;
 
 import com.exe212.tutormind.Model.DTO.RegisterRequestDTO;
+import com.exe212.tutormind.Model.DTO.UserResponseDTO;
+import com.exe212.tutormind.Model.Mapper.UserMapper;
 import com.exe212.tutormind.entity.Role;
 import com.exe212.tutormind.entity.User;
 import com.exe212.tutormind.exception.*;
+import com.exe212.tutormind.model.DTO.UpdateUserRequestDTO;
 import com.exe212.tutormind.repository.RoleRepository;
 import com.exe212.tutormind.repository.UserRepository;
 import com.exe212.tutormind.service.service_interface.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -100,5 +107,39 @@ public class UserServiceImplement implements UserService {
         }
 
         return null;
+    }
+
+    @Override
+    public Page<UserResponseDTO> getUserPageable(Integer pageNo, Integer pageSize, String sortField, String sortOrder, String roleName, String search) {
+        Pageable pageable;
+        if (sortOrder.equals(SORT_ASC)) {
+            pageable = PageRequest.of(pageNo, pageSize, Sort.by(sortField).ascending());
+        } else {
+            pageable = PageRequest.of(pageNo, pageSize, Sort.by(sortField).descending());
+        }
+        Page<User> userPageable;
+        if (roleName == null || roleName.isEmpty()) roleName = "";
+            userPageable = userRepository.findByRoleNameContainingAndFullNameContaining(roleName,search, pageable);
+        return userPageable.map(UserMapper::mapToUserResponseDTO);
+    }
+
+    @Override
+    public User activateUser(String email) throws UserDoesNotExistException, UserAlreadyActiveException {
+        return null;
+    }
+
+    @Override
+    public User deactivateUser(String email) throws UserDoesNotExistException, UserAlreadyDeactivateException {
+        return null;
+    }
+
+    @Override
+    public User updateUser(UpdateUserRequestDTO updateUserRequestDTO, String email) throws UserDoesNotExistException {
+        User user=userRepository.findByEmail(email);
+        if (user==null) throw new UserDoesNotExistException();
+        if (updateUserRequestDTO.getGender()!=null) user.setGender(updateUserRequestDTO.getGender());
+        if (updateUserRequestDTO.getFullName()!=null ) user.setFullName(updateUserRequestDTO.getFullName());
+        if (updateUserRequestDTO.getAddress()!=null) user.setAddress(updateUserRequestDTO.getAddress());
+        return userRepository.save(user);
     }
 }
