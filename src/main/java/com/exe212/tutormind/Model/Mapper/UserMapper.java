@@ -1,7 +1,7 @@
-package com.exe212.tutormind.Model.Mapper;
+package com.exe212.tutormind.model.Mapper;
 
-import com.exe212.tutormind.Model.DTO.UserResponseDTO;
 import com.exe212.tutormind.entity.User;
+import com.exe212.tutormind.model.DTO.UserResponseDTO;
 
 public class UserMapper {
     public static final UserResponseDTO mapToUserResponseDTO(User user){

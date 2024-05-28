@@ -1,12 +1,12 @@
 package com.exe212.tutormind.service.service_implement;
 
 import com.exe212.tutormind.Model.DTO.RegisterRequestDTO;
-import com.exe212.tutormind.Model.DTO.UserResponseDTO;
-import com.exe212.tutormind.Model.Mapper.UserMapper;
 import com.exe212.tutormind.entity.Role;
 import com.exe212.tutormind.entity.User;
 import com.exe212.tutormind.exception.*;
 import com.exe212.tutormind.model.DTO.UpdateUserRequestDTO;
+import com.exe212.tutormind.model.DTO.UserResponseDTO;
+import com.exe212.tutormind.model.Mapper.UserMapper;
 import com.exe212.tutormind.repository.RoleRepository;
 import com.exe212.tutormind.repository.UserRepository;
 import com.exe212.tutormind.service.service_interface.UserService;
