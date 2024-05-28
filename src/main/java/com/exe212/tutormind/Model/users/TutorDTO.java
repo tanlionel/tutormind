@@ -1,16 +1,12 @@
 package com.exe212.tutormind.model.users;
 
 import com.exe212.tutormind.entity.Role;
-import com.exe212.tutormind.enums.UserRole;
+import com.exe212.tutormind.entity.User;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
-import org.springframework.security.core.GrantedAuthority;
 
-import java.time.Instant;
-import java.util.Collection;
-import java.util.List;
+import java.math.BigDecimal;
 
 @Data
 @Builder
@@ -18,7 +14,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserDTO {
+public class TutorDTO {
     private Integer id;
 
     private String email;
@@ -34,4 +30,10 @@ public class UserDTO {
     private Integer gender;
 
     private Role role;
+
+    private String personalIntroduction;
+
+    private String personalInformation;
+
+    private Double ratingPoint;
 }
