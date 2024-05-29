@@ -1,16 +1,7 @@
 package com.exe212.tutormind.model.users;
 
 import com.exe212.tutormind.entity.Role;
-import com.exe212.tutormind.enums.UserRole;
-import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 import lombok.*;
-import org.springframework.security.core.GrantedAuthority;
-
-import java.time.Instant;
-import java.util.Collection;
-import java.util.List;
 
 @Data
 @Builder
@@ -34,4 +25,11 @@ public class UserDTO {
     private Integer gender;
 
     private Role role;
+
+    private ProfileDTO profile;
+//    private String personalIntroduction;
+//
+//    private String personalInformation;
+//
+//    private Double ratingPoint;
 }

@@ -2,14 +2,16 @@ package com.exe212.tutormind.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.math.BigDecimal;
 
 @Getter
 @Setter
 @Entity
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "profile", schema = "mydb")
 public class Profile {
     @Id
@@ -18,7 +20,7 @@ public class Profile {
     private Integer id;
 
     @MapsId("userId")
-    @ManyToOne(optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
@@ -31,6 +33,6 @@ public class Profile {
     private String personalInformation;
 
     @Column(name = "rating_point", precision = 10)
-    private BigDecimal ratingPoint;
+    private Double ratingPoint;
 
 }

@@ -23,4 +23,5 @@ public class Message {
     public static final String msgProfileDoesNotExist = "Profile does not exist!";
     public static final String msgDrugDoesNotExist = "Drug does not exist!";
     public static final String msgInvalidAction = "Invalid action!";
+    public static final String msgInvalidPermission = "User does not have permission!";
 }

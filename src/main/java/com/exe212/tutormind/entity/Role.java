@@ -23,8 +23,7 @@ public class Role {
     @Column(name = "description", length = 250)
     private String description;
 
-    @Size(max = 45)
-    @Column(name = "is_active", length = 45)
-    private String isActive;
-
+//    @Size(max = 45)
+    @Column(name = "is_active")
+    private Boolean isActive;
 }
