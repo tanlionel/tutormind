@@ -5,6 +5,7 @@ import com.exe212.tutormind.service.service_interface.FileService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.apache.coyote.BadRequestException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -17,7 +18,7 @@ import java.nio.file.Path;
 @RequiredArgsConstructor
 public class FileServiceImpl implements FileService {
 
-
+    @Autowired
     private final DataBucketUtil dataBucketUtil;
 
 

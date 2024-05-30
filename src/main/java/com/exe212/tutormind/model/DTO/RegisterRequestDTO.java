@@ -1,4 +1,4 @@
-package com.exe212.tutormind.Model.DTO;
+package com.exe212.tutormind.model.DTO;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Id;

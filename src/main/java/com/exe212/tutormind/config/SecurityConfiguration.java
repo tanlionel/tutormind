@@ -2,6 +2,7 @@ package com.exe212.tutormind.config;
 
 import com.exe212.tutormind.common.Common;
 import lombok.Data;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -20,7 +21,9 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Data
 public class SecurityConfiguration {
 
+    @Autowired
     private final JwtAuthFilter jwtAuthFilter;
+    @Autowired
     private final AuthenticationProvider authenticationProvider;
 
     @Bean

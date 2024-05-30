@@ -1,9 +1,9 @@
 package com.exe212.tutormind.service.service_implement;
 
-import com.exe212.tutormind.Model.DTO.RegisterRequestDTO;
 import com.exe212.tutormind.entity.Role;
 import com.exe212.tutormind.entity.User;
 import com.exe212.tutormind.exception.*;
+import com.exe212.tutormind.model.DTO.RegisterRequestDTO;
 import com.exe212.tutormind.model.DTO.UpdateUserRequestDTO;
 import com.exe212.tutormind.model.DTO.UserResponseDTO;
 import com.exe212.tutormind.model.Mapper.UserMapper;
@@ -30,7 +30,9 @@ import java.util.Optional;
 public class UserServiceImplement implements UserService {
     @Autowired
     private final UserRepository userRepository;
+    @Autowired
     private final PasswordEncoder passwordEncoder;
+    @Autowired
     private final RoleRepository roleRepository;
     private static final String ACTIVE = "Active";
     private static final String DEACTIVATE = "Deactivate";

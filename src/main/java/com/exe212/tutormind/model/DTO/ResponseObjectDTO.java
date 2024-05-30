@@ -1,4 +1,4 @@
-package com.exe212.tutormind.Model.DTO;
+package com.exe212.tutormind.model.DTO;
 
 import lombok.Builder;
 import lombok.Data;

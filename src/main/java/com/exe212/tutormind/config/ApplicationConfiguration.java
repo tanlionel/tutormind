@@ -2,6 +2,7 @@ package com.exe212.tutormind.config;
 
 import com.exe212.tutormind.repository.UserRepository;
 import lombok.Data;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableAsync;
@@ -17,6 +18,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Data
 @EnableAsync
 public class ApplicationConfiguration {
+    @Autowired
     private final UserRepository userRepository;
 
     @Bean

@@ -1,8 +1,9 @@
 package com.exe212.tutormind.service.service_interface;
 
-import com.exe212.tutormind.Model.DTO.RegisterRequestDTO;
+
 import com.exe212.tutormind.entity.User;
 import com.exe212.tutormind.exception.*;
+import com.exe212.tutormind.model.DTO.RegisterRequestDTO;
 import com.exe212.tutormind.model.DTO.UpdateUserRequestDTO;
 import com.exe212.tutormind.model.DTO.UserResponseDTO;
 import org.springframework.data.domain.Page;
