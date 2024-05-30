@@ -2,12 +2,14 @@ package com.exe212.tutormind.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Table(name = "subject", schema = "mydb")
 public class Subject {
     @Id
@@ -16,7 +18,7 @@ public class Subject {
     private Integer id;
 
     //@MapsId("subjectCategoryId")
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "subject_category_id", nullable = false)
     private SubjectCategory subjectCategory;
 

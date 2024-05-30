@@ -2,12 +2,14 @@ package com.exe212.tutormind.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
 @Entity
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "major", schema = "mydb")
 public class Major {
     @Id
@@ -20,9 +22,9 @@ public class Major {
     @JoinColumn(name = "subject_id", nullable = false, referencedColumnName = "id")
     private Subject subject;
 
-    @MapsId("userId")
+//    @MapsId("userId")
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "user_id", nullable = false, referencedColumnName = "id")
     private User user;
 
     @Size(max = 2000)
