@@ -5,6 +5,7 @@ import com.exe212.tutormind.entity.User;
 import com.exe212.tutormind.exception.UserDoesNotExistException;
 import com.exe212.tutormind.model.DTO.UpdateUserRequestDTO;
 import com.exe212.tutormind.model.DTO.UserResponseDTO;
+import com.exe212.tutormind.model.users.UserDTO;
 import com.exe212.tutormind.service.service_interface.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,15 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
     @Autowired
     private final UserService userService;
+
+    @GetMapping("/{email}")
+    public ResponseEntity<User> getUserById(@PathVariable String email) throws Exception {
+
+        return ResponseEntity.ok(
+                userService.getUserByEmail(email)
+        );
+
+    }
 
     @GetMapping()
     public ResponseEntity<?> getUsersPageable(@RequestParam(required = false,defaultValue = "0") Integer pageNo,

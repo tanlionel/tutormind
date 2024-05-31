@@ -15,10 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 public class ProfileDTO {
     private String personalIntroduction;
-
     private String personalInformation;
-
     private Double ratingPoint;
-
     private List<MajorDTO> majorList;
 }
