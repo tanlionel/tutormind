@@ -71,6 +71,20 @@ public class UserServiceImplement implements UserService {
     }
 
     @Override
+    public User getUserById(Integer id) throws Exception {
+        User user = null;
+
+        try {
+            user = userRepository.findById(id).get();
+        }
+        catch (Exception e) {
+            throw new UserDoesNotExistException();
+        }
+
+        return user;
+    }
+
+    @Override
     public User registerUser(RegisterRequestDTO registerUser) throws RoleDoesNotExistException, UserAlreadyExistsException {
         boolean isExistUser = userRepository.findByEmail(registerUser.getEmail()) != null;
 

@@ -57,6 +57,9 @@ public class User implements UserDetails {
     @Column(name = "gender")
     private Integer gender;
 
+    @Column(name = "avatar")
+    private String avatar;
+
     @Column(name = "is_active")
     private Boolean isActive;
 

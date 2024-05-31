@@ -24,12 +24,9 @@ public class UserDTO {
 
     private Integer gender;
 
+    private String avatar;
+
     private Role role;
 
     private ProfileDTO profile;
-//    private String personalIntroduction;
-//
-//    private String personalInformation;
-//
-//    private Double ratingPoint;
 }

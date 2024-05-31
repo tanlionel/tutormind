@@ -19,9 +19,8 @@ public interface ProfileRepository extends JpaRepository<Profile, Integer> {
             "FROM Profile p JOIN Major m ON p.user.id = m.user.id " +
             "WHERE " +
             "(m.subject.id IN :subjectIdList OR :subjectIdList IS NULL) " +
-            "OR ( NOT (:search IS NULL OR :search = '') " +
             "AND (p.user.fullName LIKE '%' || :search || '%' " +
-            "OR m.subject.name = :search) )")
+            "OR m.subject.name = :search)")
     public Page<Profile> getProfilePagination(Pageable pageable,
                                         @Param("search") String search,
                                         @Param("subjectIdList") List<Integer> subjectIdList);
