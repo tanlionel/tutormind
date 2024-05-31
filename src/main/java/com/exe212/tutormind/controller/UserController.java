@@ -50,6 +50,7 @@ public class UserController {
                         .fullName(user.getFullName())
                         .phone(user.getPhone())
                         .address(user.getAddress())
+                        .avatar(user.getAvatar())
                         .build());
     }
 }

@@ -156,6 +156,7 @@ public class UserServiceImplement implements UserService {
         if (updateUserRequestDTO.getGender()!=null) user.setGender(updateUserRequestDTO.getGender());
         if (updateUserRequestDTO.getFullName()!=null ) user.setFullName(updateUserRequestDTO.getFullName());
         if (updateUserRequestDTO.getAddress()!=null) user.setAddress(updateUserRequestDTO.getAddress());
+        if (updateUserRequestDTO.getAvatar()!=null) user.setAvatar(updateUserRequestDTO.getAvatar());
         return userRepository.save(user);
     }
 }
