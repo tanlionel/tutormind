@@ -52,6 +52,7 @@ public class TutorServiceImplement implements TutorService {
                                 .fullName(p.getUser().getFullName())
                                 .address(p.getUser().getAddress())
                                 .gender(p.getUser().getGender())
+                                .avatar(p.getUser().getAvatar())
                                 .role(p.getUser().getRole())
                                 .profile(
                                         ProfileDTO.builder()
@@ -97,6 +98,7 @@ public class TutorServiceImplement implements TutorService {
                 .fullName(profile.getUser().getFullName())
                 .address(profile.getUser().getAddress())
                 .gender(profile.getUser().getGender())
+                .avatar(profile.getUser().getAvatar())
                 .role(profile.getUser().getRole())
                 .profile(
                         ProfileDTO.builder()
