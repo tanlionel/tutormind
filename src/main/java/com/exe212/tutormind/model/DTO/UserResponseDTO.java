@@ -19,4 +19,5 @@ public class UserResponseDTO {
     private String address;
     private Integer gender;
     private String roleName;
+    private String avatar;
 }

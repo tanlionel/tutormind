@@ -66,6 +66,8 @@ public class User implements UserDetails {
     @Column(name = "updated_date")
     private Instant updatedDate;
 
+    @Column(name = "avatar",length = 700)
+    private String avatar;
     @NotNull
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "role_id", nullable = false)

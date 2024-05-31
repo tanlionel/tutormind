@@ -18,4 +18,5 @@ public class UpdateUserRequestDTO {
     private String address;
     private Integer gender;
     private Integer roleId;
+    private String avatar;
 }
