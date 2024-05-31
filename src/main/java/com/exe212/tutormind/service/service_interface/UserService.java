@@ -12,7 +12,7 @@ public interface UserService {
     User getUserByEmail(String Email) throws UserDoesNotExistException, InvalidateException;
     User getUserByUserName(String Username) throws UserDoesNotExistException, InvalidateException;
     User login(String email, String password) throws UserDoesNotExistException, AccountSuspendedException, InvalidateException;
-
+    User getUserById(Integer id) throws Exception;
     User registerUser(RegisterRequestDTO registerUser) throws RoleDoesNotExistException, UserAlreadyExistsException;
 
     User getLoginUser();
