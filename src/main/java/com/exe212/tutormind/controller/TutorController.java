@@ -40,7 +40,8 @@ public class TutorController {
     }
 
     @PostMapping("{email}")
-    public ResponseEntity<?> createOrUpdateTutorProfile(@PathVariable String email, ProfileDTO profileDto) throws Exception {
+    public ResponseEntity<?> createOrUpdateTutorProfile(@PathVariable String email,
+                                                        @RequestBody ProfileDTO profileDto) throws Exception {
         return ResponseEntity.ok(
                 tutorService.createOrUpdateTutorProfile(email, profileDto)
         );

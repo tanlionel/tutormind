@@ -7,8 +7,6 @@ import org.springframework.data.domain.Page;
 import java.util.List;
 
 public interface TutorService {
-    Page<UserDTO> getPageableTutor(int pageIndex, int pageSize, String search);
-
     Page<UserDTO> getPageableTutor(int pageIndex,
                                    int pageSize,
                                    String search,

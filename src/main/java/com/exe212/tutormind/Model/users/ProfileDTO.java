@@ -1,7 +1,11 @@
 package com.exe212.tutormind.model.users;
 
+import com.exe212.tutormind.model.subject.SubjectDTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
+import org.antlr.v4.runtime.misc.Pair;
+
+import java.util.List;
 
 @Data
 @Builder
@@ -14,6 +18,7 @@ public class ProfileDTO {
 
     private String personalInformation;
 
-    @JsonIgnore
     private Double ratingPoint;
+
+    private List<MajorDTO> majorList;
 }
