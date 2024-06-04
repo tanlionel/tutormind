@@ -2,10 +2,12 @@ package com.exe212.tutormind.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 @Setter
 @Entity
 @Table(name = "conversation_status", schema = "mydb")
