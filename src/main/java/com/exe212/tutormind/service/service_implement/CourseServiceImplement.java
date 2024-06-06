@@ -1,10 +1,13 @@
 package com.exe212.tutormind.service.service_implement;
 
 import com.exe212.tutormind.entity.Course;
+import com.exe212.tutormind.entity.Lessons;
 import com.exe212.tutormind.entity.User;
 import com.exe212.tutormind.exception.NotFoundException;
 import com.exe212.tutormind.model.DTO.CourseDTO;
+import com.exe212.tutormind.model.DTO.CourseDetailDTO;
 import com.exe212.tutormind.repository.CourseRepository;
+import com.exe212.tutormind.repository.LessonsRepository;
 import com.exe212.tutormind.repository.UserRepository;
 import com.exe212.tutormind.service.service_interface.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +18,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -23,6 +27,8 @@ public class CourseServiceImplement implements CourseService {
     CourseRepository courseRepository;
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    LessonsRepository lessonsRepository;
     @Override
     public Page<Course> getCourseList(Integer pageNo, Integer pageSize, String search) {
         Pageable pageable = PageRequest.of(pageNo,pageSize).withSort(Sort.by("id").descending());
@@ -39,9 +45,19 @@ public class CourseServiceImplement implements CourseService {
     }
 
     @Override
-    public Course getCourseByCourseId(Integer courseId) throws NotFoundException {
+    public CourseDetailDTO getCourseByCourseId(Integer courseId) throws NotFoundException {
         Course course = courseRepository.findById(courseId).orElseThrow(NotFoundException::new);
-        return course;
+        List<Lessons> lessons = lessonsRepository.findAllByCourse_Id(courseId);
+        CourseDetailDTO courseDetailDTO = CourseDetailDTO.builder()
+                .id(course.getId())
+                .price(course.getPrice())
+                .tutor(course.getTutor())
+                .title(course.getTitle())
+                .simpleDescription(course.getSimpleDescription())
+                .description(course.getDescription())
+                .lessonsList(lessons)
+                .build();
+        return courseDetailDTO;
     }
 
     @Override
