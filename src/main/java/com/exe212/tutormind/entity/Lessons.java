@@ -1,5 +1,6 @@
 package com.exe212.tutormind.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -24,8 +25,9 @@ public class Lessons {
     @Column(name = "description", length = 250)
     private String description;
 
+    @JsonIgnore
     @NotNull
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "conversation_id", nullable = false)
-    private Conversation conversation;
+    @JoinColumn(name = "course_id", nullable = false)
+    private Course course;
 }

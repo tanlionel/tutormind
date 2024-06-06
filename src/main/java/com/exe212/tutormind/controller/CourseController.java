@@ -4,6 +4,7 @@ package com.exe212.tutormind.controller;
 import com.exe212.tutormind.entity.Course;
 import com.exe212.tutormind.exception.NotFoundException;
 import com.exe212.tutormind.model.DTO.CourseDTO;
+import com.exe212.tutormind.model.DTO.CourseDetailDTO;
 import com.exe212.tutormind.service.service_interface.CourseService;
 import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +33,7 @@ public class CourseController {
     };
 
     @GetMapping("{courseId}")
-    public Course getCourseById(@PathVariable Integer courseId) throws NotFoundException {
+    public CourseDetailDTO getCourseById(@PathVariable Integer courseId) throws NotFoundException {
         return courseService.getCourseByCourseId(courseId);
     }
 
