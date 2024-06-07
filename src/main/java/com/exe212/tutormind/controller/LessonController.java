@@ -26,9 +26,9 @@ public class LessonController {
         CourseDetailDTO courseDetailDTO = lessonService.createLesson(courseId,lessonsList);
         return courseDetailDTO;
     }
-    @PutMapping()
-    public CourseDetailDTO updateLesson(@RequestBody CourseDetailDTO courseDetailDTO) throws NotFoundException, BadRequestException {
-        CourseDetailDTO courseDetailDTOUpdate = lessonService.updateLesson(courseDetailDTO);
+    @PutMapping("{courseId}")
+    public CourseDetailDTO updateLesson(@PathVariable Integer courseId,@RequestBody List<Lessons> lessonsList) throws NotFoundException, BadRequestException {
+        CourseDetailDTO courseDetailDTOUpdate = lessonService.updateLesson(courseId,lessonsList);
         return courseDetailDTOUpdate;
     }
 }

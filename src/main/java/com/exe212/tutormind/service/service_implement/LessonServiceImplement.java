@@ -48,15 +48,16 @@ public class LessonServiceImplement implements LessonService {
     }
 
     @Override
-    public CourseDetailDTO updateLesson(CourseDetailDTO courseDetailDTO) throws NotFoundException, BadRequestException {
-        Course course = courseRepository.findById(courseDetailDTO.getId()).orElseThrow(NotFoundException::new);
-        for(Lessons tmp: courseDetailDTO.getLessonsList()){
+    public CourseDetailDTO updateLesson(Integer courseId, List<Lessons> lessons) throws NotFoundException, BadRequestException {
+        Course course = courseRepository.findById(courseId).orElseThrow(NotFoundException::new);
+        for(Lessons tmp: lessons){
             Lessons lessonDB = lessonsRepository.findById(tmp.getId()).orElseThrow(BadRequestException::new);
             lessonDB.setDescription(tmp.getDescription());
             lessonDB.setTitle(tmp.getTitle());
+            lessonDB.setUrl(tmp.getUrl());
             lessonsRepository.save(lessonDB);
         }
-        List<Lessons> lessonsList = lessonsRepository.findAllByCourse_Id(courseDetailDTO.getId());
+        List<Lessons> lessonsList = lessonsRepository.findAllByCourse_Id(courseId);
         CourseDetailDTO courseDetailDTODB = CourseDetailDTO.builder()
                 .id(course.getId())
                 .price(course.getPrice())

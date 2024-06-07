@@ -11,5 +11,5 @@ import java.util.List;
 public interface LessonService {
     Lessons getLessonById(Integer lessonId) throws BadRequestException;
     CourseDetailDTO createLesson(Integer courseId, List<Lessons> lessons) throws NotFoundException;
-    CourseDetailDTO updateLesson(CourseDetailDTO courseDetailDTO) throws NotFoundException, BadRequestException;
+    CourseDetailDTO updateLesson(Integer courseId, List<Lessons> lessons) throws NotFoundException, BadRequestException;
 }
