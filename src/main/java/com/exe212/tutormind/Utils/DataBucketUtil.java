@@ -35,10 +35,9 @@ public class DataBucketUtil {
     private String gcpDirectoryName;
 
 
-    public String uploadFile(MultipartFile multipartFile, String fileName, String contentType) {
-
+    public String uploadFile(MultipartFile multipartFile, String fileName, String contentType) throws Exception {
         File tempFile = null;
-        try {
+        try{
             tempFile = convertFile(multipartFile);
             byte[] fileData = FileUtils.readFileToByteArray(tempFile);
 
@@ -48,25 +47,26 @@ public class DataBucketUtil {
                     .setCredentials(GoogleCredentials.fromStream(inputStream)).build();
 
             Storage storage = options.getService();
-            Bucket bucket = storage.get(gcpBucketId, Storage.BucketGetOption.fields());
+            Bucket bucket = storage.get(gcpBucketId,Storage.BucketGetOption.fields());
 
             RandomString id = new RandomString(6, ThreadLocalRandom.current());
             Blob blob = bucket.create(gcpDirectoryName + "/" + fileName + "-" + id.nextString() + checkFileExtension(fileName), fileData, contentType);
 
-            if (blob != null) {
-                return getDirectImageURL(blob.getMediaLink());
+            if(blob != null){
+                return getDirectImageURL(blob.getMediaLink()) ;
             }
-        } catch (Exception e) {
-            throw new RuntimeException("Error during file upload", e);
-        } finally {
+
+        }catch (Exception e){
+            throw new Exception(e);
+        }finally {
             if (tempFile != null && tempFile.exists()) {
                 tempFile.delete();
             }
         }
-        throw new RuntimeException("Error during file upload");
+        throw new BadRequestException();
     }
 
-    private File convertFile(MultipartFile file) {
+    private File convertFile(MultipartFile file) throws Exception {
 
         try{
             if(file.getOriginalFilename() == null){
@@ -78,7 +78,7 @@ public class DataBucketUtil {
             outputStream.close();
             return convertedFile;
         }catch (Exception e){
-            throw new RuntimeException();
+            throw new Exception(e);
         }
     }
 
@@ -94,6 +94,8 @@ public class DataBucketUtil {
         }
         throw new InvalidFileTypeException("Not a permitted file type");
     }
+
+
     public String getDirectImageURL(String storageURL) {
         String bucketName = storageURL.substring(storageURL.indexOf("/b/") + 3, storageURL.indexOf("/o/"));
         String objectPath = storageURL.substring(storageURL.indexOf("/o/") + 3, storageURL.indexOf("?"));
