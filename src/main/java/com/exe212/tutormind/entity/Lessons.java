@@ -25,6 +25,9 @@ public class Lessons {
     @Column(name = "description", length = 250)
     private String description;
 
+    @Column(name = "url",length = 559)
+    private String url;
+
     @JsonIgnore
     @NotNull
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
