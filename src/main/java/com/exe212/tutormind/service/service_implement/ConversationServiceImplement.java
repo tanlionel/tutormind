@@ -1,5 +1,6 @@
 package com.exe212.tutormind.service.service_implement;
 
+import com.exe212.tutormind.common.Common;
 import com.exe212.tutormind.entity.Conversation;
 import com.exe212.tutormind.entity.ConversationStatus;
 import com.exe212.tutormind.exception.NotFoundException;
@@ -12,8 +13,13 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import javax.swing.text.DateFormatter;
 import java.sql.Date;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
+import java.util.List;
 
 @Service
 public class ConversationServiceImplement implements ConversationService {
@@ -38,12 +44,31 @@ public class ConversationServiceImplement implements ConversationService {
                         .contactNumber(c.getContactNumber())
                         .description(c.getDescription())
                         .conversationStatus(c.getConversationStatus())
+                        .totalPrice(c.getTotalPrice())
                         .createdDate(c.getCreatedDate())
                         .updatedDate(c.getUpdatedDate())
                         .build()
         );
 
         return page;
+    }
+
+    private List<LocalDate> convertScheduleDateList(String schedule) {
+        List<String> list = Arrays.stream(schedule.split("#")).toList();
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(Common.DATE_FORMATTER);
+
+        return list.stream().map(
+                s -> LocalDate.parse(s, formatter)
+        ).toList();
+    }
+
+    private String generateSchedule(List<LocalDate> schedule) {
+        List<String> list = schedule.stream().map(s -> s.toString()).toList();
+
+        String result = String.join("#", list);
+
+        return result;
     }
 
     @Override
@@ -64,6 +89,8 @@ public class ConversationServiceImplement implements ConversationService {
                         .contactNumber(conversation.getContactNumber())
                         .description(conversation.getDescription())
                         .conversationStatus(conversation.getConversationStatus())
+                        .totalPrice(conversation.getTotalPrice())
+                        .schedule(generateSchedule(conversation.getSchedule()))
                         .createdDate(LocalDateTime.now())
                         .updatedDate(LocalDateTime.now())
                         .build();
@@ -105,6 +132,8 @@ public class ConversationServiceImplement implements ConversationService {
                     .contactNumber(c.getContactNumber())
                     .description(c.getDescription())
                     .conversationStatus(c.getConversationStatus())
+                    .totalPrice(c.getTotalPrice())
+                    .schedule(convertScheduleDateList(c.getSchedule()))
                     .createdDate(c.getCreatedDate())
                     .updatedDate(c.getUpdatedDate())
                     .build();

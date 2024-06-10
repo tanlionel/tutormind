@@ -2,6 +2,7 @@ package com.exe212.tutormind.model.conversation;
 
 import com.exe212.tutormind.entity.ConversationStatus;
 import com.exe212.tutormind.entity.User;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.google.api.client.util.DateTime;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -10,8 +11,10 @@ import lombok.*;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.cglib.core.Local;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @Builder
@@ -34,8 +37,15 @@ public class ConversationDTO {
 
     private String contactNumber;
 
+    @JsonFormat(pattern="yyyy-MM-dd")
+    private List<LocalDate> schedule;
+
+    private Integer totalPrice;
+
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createdDate;
 
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private LocalDateTime updatedDate;
 
     private ConversationStatus conversationStatus;
