@@ -39,7 +39,7 @@ public class Course {
     @JoinColumn(name = "tutor_id", nullable = false)
     private User tutor;
 
-    @JsonFormat(pattern="yyyy-MM-dd")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @Column(name = "created_date")
     private LocalDateTime createdDate;
 
