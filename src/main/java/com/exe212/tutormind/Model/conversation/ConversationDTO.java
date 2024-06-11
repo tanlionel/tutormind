@@ -3,6 +3,8 @@ package com.exe212.tutormind.model.conversation;
 import com.exe212.tutormind.entity.ConversationStatus;
 import com.exe212.tutormind.entity.User;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.api.client.util.DateTime;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -25,19 +27,13 @@ import java.util.List;
 @AllArgsConstructor
 public class ConversationDTO {
     private Integer id;
-
     private String title;
-
     private User teacher;
-
     private User user;
-
     private String description;
-
     private String address;
-
     private String contactNumber;
-
+    @JsonIgnore
     @JsonFormat(pattern="yyyy-MM-dd")
     private List<LocalDate> schedule;
 
@@ -54,9 +50,11 @@ public class ConversationDTO {
     private Integer totalPrice;
 
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private LocalDateTime createdDate;
 
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private LocalDateTime updatedDate;
 
     private ConversationStatus conversationStatus;

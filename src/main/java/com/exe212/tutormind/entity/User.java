@@ -2,6 +2,7 @@ package com.exe212.tutormind.entity;
 
 import com.exe212.tutormind.enums.UserRole;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -59,12 +60,15 @@ public class User implements UserDetails {
 
 
     @Column(name = "is_active")
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Boolean isActive;
 
     @Column(name = "created_date")
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Instant createdDate;
 
     @Column(name = "updated_date")
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Instant updatedDate;
 
     @Column(name = "avatar",length = 700)
@@ -72,29 +76,30 @@ public class User implements UserDetails {
     @NotNull
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "role_id", nullable = false)
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Role role;
-
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
 //        return List.of(UserRole.valueOf(role.getName())::name);
         return ((role == null) ? null : List.of(UserRole.valueOf(role.getName())::name));
     }
-
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Override
     public boolean isAccountNonExpired() {
         return false;
     }
-
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Override
     public boolean isAccountNonLocked() {
         return false;
     }
-
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Override
     public boolean isCredentialsNonExpired() {
         return false;
     }
-
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Override
     public boolean isEnabled() {
         return false;

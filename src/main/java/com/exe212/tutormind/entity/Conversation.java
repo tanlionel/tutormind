@@ -1,6 +1,7 @@
 package com.exe212.tutormind.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.api.client.util.DateTime;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -70,10 +71,12 @@ public class Conversation {
 
     @JsonFormat(pattern="yyyy-MM-dd")
     @Column(name = "created_date", updatable = false)
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private LocalDateTime createdDate;
 
     @JsonFormat(pattern="yyyy-MM-dd")
     @Column(name = "updated_date")
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private LocalDateTime updatedDate;
 
     @NotNull
