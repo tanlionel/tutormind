@@ -8,6 +8,7 @@ import jakarta.validation.constraints.Size;
 import lombok.*;
 import org.springframework.cglib.core.Local;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 
@@ -50,6 +51,20 @@ public class Conversation {
     @Column(name = "schedule", length = 2000)
     private String schedule;
 
+    @JsonFormat(pattern="yyyy-MM-dd")
+    @Column(name = "start_date")
+    private LocalDate startDate;
+
+    @JsonFormat(pattern="yyyy-MM-dd")
+    @Column(name = "end_date")
+    private LocalDate endDate;
+
+    @Column(name = "day_of_week")
+    private String dayOfWeek;
+
+    @Column(name = "slot")
+    private Integer slot;
+
     @Column(name = "contact_number", length = 50)
     private String contactNumber;
 
@@ -65,5 +80,4 @@ public class Conversation {
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "conversation_status_id", nullable = false)
     private ConversationStatus conversationStatus;
-
 }

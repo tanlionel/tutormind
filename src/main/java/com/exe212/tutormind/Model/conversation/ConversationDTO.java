@@ -11,6 +11,7 @@ import lombok.*;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.cglib.core.Local;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -39,6 +40,16 @@ public class ConversationDTO {
 
     @JsonFormat(pattern="yyyy-MM-dd")
     private List<LocalDate> schedule;
+
+    @JsonFormat(pattern="yyyy-MM-dd")
+    private LocalDate dateFrom;
+
+    @JsonFormat(pattern="yyyy-MM-dd")
+    private LocalDate dateTo;
+
+    private List<Integer> dayOfWeek;
+
+    private Integer slot;
 
     private Integer totalPrice;
 

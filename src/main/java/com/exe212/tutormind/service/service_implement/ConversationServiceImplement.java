@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import javax.swing.text.DateFormatter;
 import java.sql.Date;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -53,22 +54,39 @@ public class ConversationServiceImplement implements ConversationService {
         return page;
     }
 
-    private List<LocalDate> convertScheduleDateList(String schedule) {
-        List<String> list = Arrays.stream(schedule.split("#")).toList();
+//    private List<LocalDate> convertScheduleDateList(String schedule) {
+//        List<String> list = Arrays.stream(schedule.split("#")).toList();
+//
+//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(Common.DATE_FORMATTER);
+//
+//        return list.stream().map(
+//                s -> LocalDate.parse(s, formatter)
+//        ).toList();
+//    }
+//
+//    private String generateSchedule(List<LocalDate> schedule) {
+//        List<String> list = schedule.stream().map(s -> s.toString()).toList();
+//
+//        String result = String.join("#", list);
+//
+//        return result;
+//    }
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(Common.DATE_FORMATTER);
+    private String convertDayOfWeek(List<Integer> dayOfWeeks) {
+        List<String> list = dayOfWeeks.stream().map(d -> d.toString()).toList();
 
-        return list.stream().map(
-                s -> LocalDate.parse(s, formatter)
-        ).toList();
+        String dayOfWeek = String.join(
+                "#", list
+        );
+
+        return dayOfWeek;
     }
 
-    private String generateSchedule(List<LocalDate> schedule) {
-        List<String> list = schedule.stream().map(s -> s.toString()).toList();
+    private List<Integer> generateDayOfWeekList(String dayOfWeek) {
+        List<Integer> list = Arrays.stream(dayOfWeek.split("#"))
+                .map(a -> Integer.parseInt(a)).toList();
 
-        String result = String.join("#", list);
-
-        return result;
+        return list;
     }
 
     @Override
@@ -90,7 +108,10 @@ public class ConversationServiceImplement implements ConversationService {
                         .description(conversation.getDescription())
                         .conversationStatus(conversation.getConversationStatus())
                         .totalPrice(conversation.getTotalPrice())
-                        .schedule(generateSchedule(conversation.getSchedule()))
+                        .startDate(conversation.getDateFrom())
+                        .endDate(conversation.getDateTo())
+                        .slot(conversation.getSlot())
+                        .dayOfWeek(convertDayOfWeek(conversation.getDayOfWeek()))
                         .createdDate(LocalDateTime.now())
                         .updatedDate(LocalDateTime.now())
                         .build();
@@ -133,7 +154,11 @@ public class ConversationServiceImplement implements ConversationService {
                     .description(c.getDescription())
                     .conversationStatus(c.getConversationStatus())
                     .totalPrice(c.getTotalPrice())
-                    .schedule(convertScheduleDateList(c.getSchedule()))
+                    .dateFrom(c.getStartDate())
+                    .dateTo(c.getEndDate())
+                    .slot(c.getSlot())
+                    .dayOfWeek(generateDayOfWeekList(c.getDayOfWeek()))
+//                    .schedule(convertScheduleDateList(c.getSchedule()))
                     .createdDate(c.getCreatedDate())
                     .updatedDate(c.getUpdatedDate())
                     .build();
