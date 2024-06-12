@@ -53,4 +53,7 @@ public class Course {
     @Column(name = "price", precision = 10)
     private BigDecimal price;
 
+    @Column(name = "image",length = 1000)
+    private String image;
+
 }

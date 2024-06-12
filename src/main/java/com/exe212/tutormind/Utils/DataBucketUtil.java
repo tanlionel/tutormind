@@ -90,6 +90,8 @@ public class DataBucketUtil {
             FileOutputStream outputStream = new FileOutputStream(convertedFile);
             byte[] buffer = new byte[1024];
             int bytesRead;
+
+
             InputStream inputStream = file.getInputStream();
             while ((bytesRead = inputStream.read(buffer)) != -1) {
                 outputStream.write(buffer, 0, bytesRead);

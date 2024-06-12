@@ -70,6 +70,7 @@ public class CourseServiceImplement implements CourseService {
                 .createdDate(LocalDateTime.now())
                 .updatedDate(LocalDateTime.now())
                 .isActive(true)
+                .image(course.getImage())
                 .tutor(tutor.get())
                 .price(course.getPrice())
                 .build();
@@ -82,6 +83,7 @@ public class CourseServiceImplement implements CourseService {
         courseDB.setUpdatedDate(LocalDateTime.now());
         courseDB.setPrice(course.getPrice());
         courseDB.setTitle(course.getTitle());
+        if (!course.getImage().isEmpty()) courseDB.setImage(course.getImage());
         courseDB.setDescription(course.getDescription());
         courseDB.setSimpleDescription(course.getSimpleDescription());
         return courseRepository.save(courseDB);

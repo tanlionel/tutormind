@@ -38,12 +38,12 @@ public class CourseController {
     }
 
     @PostMapping()
-    public Course createCourse(CourseDTO course){
+    public Course createCourse(@RequestBody CourseDTO course){
         return courseService.createCourse(course);
     }
 
-    @PutMapping()
-    public Course updateCourse(Integer courseId,CourseDTO course) throws NotFoundException {
+    @PutMapping("{courseId}")
+    public Course updateCourse(@PathVariable Integer courseId,@RequestBody CourseDTO course) throws NotFoundException {
         return courseService.updateCourse(courseId,course);
     }
 }

@@ -23,4 +23,5 @@ public class CourseDTO {
     private String simpleDescription;
     private Integer tutorId;
     private BigDecimal price;
+    private String image;
 }
