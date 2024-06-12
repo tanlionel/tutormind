@@ -66,43 +66,43 @@ public class DataBucketUtil {
         throw new BadRequestException();
     }
 
-//    private File convertFile(MultipartFile file) throws Exception {
-//
-//        try{
-//            if(file.getOriginalFilename() == null){
-//                throw new BadRequestException("Original file name is null");
-//            }
-//            File convertedFile = new File(file.getOriginalFilename());
-//            FileOutputStream outputStream = new FileOutputStream(convertedFile);
-//            outputStream.write(file.getBytes());
-//            outputStream.close();
-//            return convertedFile;
-//        }catch (Exception e){
-//            throw new Exception(e);
-//        }
-//    }
     private File convertFile(MultipartFile file) throws Exception {
-        try {
-            if (file.getOriginalFilename() == null) {
+
+        try{
+            if(file.getOriginalFilename() == null){
                 throw new BadRequestException("Original file name is null");
             }
             File convertedFile = new File(file.getOriginalFilename());
             FileOutputStream outputStream = new FileOutputStream(convertedFile);
-            byte[] buffer = new byte[1024];
-            int bytesRead;
-
-
-            InputStream inputStream = file.getInputStream();
-            while ((bytesRead = inputStream.read(buffer)) != -1) {
-                outputStream.write(buffer, 0, bytesRead);
-            }
+            outputStream.write(file.getBytes());
             outputStream.close();
-            inputStream.close();
             return convertedFile;
-        } catch (Exception e) {
+        }catch (Exception e){
             throw new Exception(e);
         }
     }
+//    private File convertFile(MultipartFile file) throws Exception {
+//        try {
+//            if (file.getOriginalFilename() == null) {
+//                throw new BadRequestException("Original file name is null");
+//            }
+//            File convertedFile = new File(file.getOriginalFilename());
+//            FileOutputStream outputStream = new FileOutputStream(convertedFile);
+//            byte[] buffer = new byte[1024];
+//            int bytesRead;
+//
+//
+//            InputStream inputStream = file.getInputStream();
+//            while ((bytesRead = inputStream.read(buffer)) != -1) {
+//                outputStream.write(buffer, 0, bytesRead);
+//            }
+//            outputStream.close();
+//            inputStream.close();
+//            return convertedFile;
+//        } catch (Exception e) {
+//            throw new Exception(e);
+//        }
+//    }
 
     private String checkFileExtension(String fileName) {
         if(fileName != null && fileName.contains(".")){
