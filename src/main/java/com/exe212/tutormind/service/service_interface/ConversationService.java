@@ -16,7 +16,9 @@ public interface ConversationService {
 
     public ConversationDTO createOrUpdateConversation(ConversationDTO conversation) throws Exception;
 
-    public ConversationDTO updateConversationStatus(Integer id, Integer status) throws Exception;
+    public ConversationDTO updateConversationStatus(Integer id,
+                                                    Integer status,
+                                                    String remark) throws Exception;
 
     public ConversationDTO getConversationById(Integer id) throws Exception;
 }
