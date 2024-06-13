@@ -84,22 +84,22 @@ public class User implements UserDetails {
 //        return List.of(UserRole.valueOf(role.getName())::name);
         return ((role == null) ? null : List.of(UserRole.valueOf(role.getName())::name));
     }
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @JsonIgnore
     @Override
     public boolean isAccountNonExpired() {
         return false;
     }
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @JsonIgnore
     @Override
     public boolean isAccountNonLocked() {
         return false;
     }
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @JsonIgnore
     @Override
     public boolean isCredentialsNonExpired() {
         return false;
     }
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @JsonIgnore
     @Override
     public boolean isEnabled() {
         return false;

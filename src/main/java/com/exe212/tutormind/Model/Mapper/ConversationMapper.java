@@ -29,6 +29,7 @@ public class ConversationMapper {
                     .dayOfWeek(Common.generateDayOfWeekList(c.getDayOfWeek()))
                     .createdDate(c.getCreatedDate())
                     .updatedDate(c.getUpdatedDate())
+                    .remark(c.getRemark())
                     .build();
 
         }

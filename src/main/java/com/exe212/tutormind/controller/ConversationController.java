@@ -2,6 +2,7 @@ package com.exe212.tutormind.controller;
 
 import com.exe212.tutormind.common.Common;
 import com.exe212.tutormind.model.conversation.ConversationDTO;
+import com.exe212.tutormind.model.conversation.ConversationRequestStatus;
 import com.exe212.tutormind.service.service_interface.ConversationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,6 +68,16 @@ public class ConversationController {
 
         return ResponseEntity.ok(
                 conversationService.createOrUpdateConversation(conversation)
+        );
+    }
+
+    @PutMapping("/update-status/{id}")
+    public ResponseEntity<ConversationDTO> updateConversationStatus(
+            @PathVariable Integer id,
+            @RequestBody ConversationRequestStatus request) throws Exception {
+
+        return ResponseEntity.ok(
+                conversationService.updateConversationStatus(id, request.getStatusId(), request.getRemark())
         );
     }
 }

@@ -1,6 +1,7 @@
 package com.exe212.tutormind.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.api.client.util.DateTime;
 import jakarta.persistence.*;
@@ -78,6 +79,10 @@ public class Conversation {
     @Column(name = "updated_date")
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private LocalDateTime updatedDate;
+
+    @Column(name = "remark", length = 2000)
+//    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    private String remark;
 
     @NotNull
     @ManyToOne(fetch = FetchType.EAGER, optional = false)

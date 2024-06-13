@@ -27,12 +27,22 @@ import java.util.List;
 @AllArgsConstructor
 public class ConversationDTO {
     private Integer id;
+
     private String title;
+
     private User teacher;
+
     private User user;
+
     private String description;
+
     private String address;
+
     private String contactNumber;
+
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    private String remark;
+
     @JsonIgnore
     @JsonFormat(pattern="yyyy-MM-dd")
     private List<LocalDate> schedule;

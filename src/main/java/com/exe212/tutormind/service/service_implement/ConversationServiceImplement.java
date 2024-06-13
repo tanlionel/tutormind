@@ -23,6 +23,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ConversationServiceImplement implements ConversationService {
@@ -42,11 +43,20 @@ public class ConversationServiceImplement implements ConversationService {
 
     @Override
     public ConversationDTO createOrUpdateConversation(ConversationDTO conversation) throws Exception{
-        if (conversation.getId() != null) {
+        String remark = null;
 
-            if (!conversationRepository.findById(conversation.getId()).isPresent())
+        remark = conversation.getRemark();
+
+        if (conversation.getId() != null) {
+            Optional<Conversation> c = conversationRepository.findById(conversation.getId());
+
+            if (!c.isPresent())
                 throw new NotFoundException();
+
+            remark = (remark == null) ? c.get().getRemark() : remark;
         }
+
+        System.out.println("Check remark: " + remark);
 
         Conversation record =
                 Conversation.builder()
@@ -62,6 +72,7 @@ public class ConversationServiceImplement implements ConversationService {
                         .startDate(conversation.getDateFrom())
                         .endDate(conversation.getDateTo())
                         .slot(conversation.getSlot())
+                        .remark(remark)
                         .dayOfWeek(Common.convertDayOfWeek(conversation.getDayOfWeek()))
                         .createdDate(LocalDateTime.now())
                         .updatedDate(LocalDateTime.now())
@@ -74,7 +85,9 @@ public class ConversationServiceImplement implements ConversationService {
     }
 
     @Override
-    public ConversationDTO updateConversationStatus(Integer id, Integer status) throws Exception{
+    public ConversationDTO updateConversationStatus(Integer id,
+                                                    Integer status,
+                                                    String remark) throws Exception {
         ConversationDTO conversation = getConversationById(id);
 
         //Assign new status
@@ -84,6 +97,8 @@ public class ConversationServiceImplement implements ConversationService {
                         .id(status)
                         .build()
         );
+
+        conversation.setRemark(remark);
 
         return createOrUpdateConversation(conversation);
     }
