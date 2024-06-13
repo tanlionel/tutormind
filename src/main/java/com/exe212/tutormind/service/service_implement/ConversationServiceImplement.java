@@ -12,6 +12,7 @@ import com.google.api.client.util.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.swing.text.DateFormatter;
@@ -36,7 +37,7 @@ public class ConversationServiceImplement implements ConversationService {
                                                            String SortBy) {
 
         return conversationRepository.findAllByTeacherFullNameContaining(
-                PageRequest.of(pageIndex, pageSize),
+                PageRequest.of(pageIndex, pageSize, Sort.by(Sort.Order.by("updatedDate")).descending()),
                 search
         ).map(ConversationMapper::mapToConversationDTO);
     }
