@@ -60,15 +60,12 @@ public class User implements UserDetails {
 
 
     @Column(name = "is_active")
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Boolean isActive;
 
     @Column(name = "created_date")
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Instant createdDate;
 
     @Column(name = "updated_date")
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Instant updatedDate;
 
     @Column(name = "avatar",length = 700)
@@ -76,9 +73,7 @@ public class User implements UserDetails {
     @NotNull
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "role_id", nullable = false)
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Role role;
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
 //        return List.of(UserRole.valueOf(role.getName())::name);

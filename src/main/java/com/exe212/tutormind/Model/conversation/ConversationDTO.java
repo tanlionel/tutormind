@@ -39,17 +39,14 @@ public class ConversationDTO {
     private String address;
 
     private String contactNumber;
-
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private String remark;
-
     @JsonIgnore
     @JsonFormat(pattern="yyyy-MM-dd")
     private List<LocalDate> schedule;
 
     @JsonFormat(pattern="yyyy-MM-dd")
     private LocalDate dateFrom;
-
     @JsonFormat(pattern="yyyy-MM-dd")
     private LocalDate dateTo;
 

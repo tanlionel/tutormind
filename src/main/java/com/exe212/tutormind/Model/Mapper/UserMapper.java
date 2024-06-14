@@ -9,7 +9,7 @@ public class UserMapper {
                 .id(user.getId())
                 .email(user.getEmail())
                 .gender(user.getGender())
-                .roleName(user.getRole().getName())
+                .roleName((user.getRole() == null) ? null : user.getRole().getName())
                 .username(user.getUsername())
                 .fullName(user.getFullName())
                 .address(user.getAddress())
