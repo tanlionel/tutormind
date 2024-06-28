@@ -3,11 +3,13 @@ package com.exe212.tutormind.service.service_implement;
 import com.exe212.tutormind.common.Common;
 import com.exe212.tutormind.entity.Conversation;
 import com.exe212.tutormind.entity.ConversationStatus;
+import com.exe212.tutormind.entity.User;
 import com.exe212.tutormind.exception.NotFoundException;
 import com.exe212.tutormind.model.Mapper.ConversationMapper;
 import com.exe212.tutormind.model.conversation.ConversationDTO;
 import com.exe212.tutormind.repository.ConversationRepository;
 import com.exe212.tutormind.service.service_interface.ConversationService;
+import com.exe212.tutormind.service.service_interface.UserService;
 import com.google.api.client.util.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -30,15 +32,19 @@ import java.util.Optional;
 public class ConversationServiceImplement implements ConversationService {
     @Autowired
     ConversationRepository conversationRepository;
+    @Autowired UserService userService;
     @Override
     public Page<ConversationDTO> getPaginationConversation(int pageIndex,
                                                            int pageSize,
                                                            String search,
                                                            String SortBy) {
+        User loginUser = userService.getLoginUser();
 
-        return conversationRepository.findAllByTeacherFullNameContaining(
+        return conversationRepository.findAllByTeacherFullNameContainingAndTeacherIdOrUserId(
                 PageRequest.of(pageIndex, pageSize, Sort.by(Sort.Order.by("updatedDate")).descending()),
-                search
+                search,
+                loginUser.getId(),
+                loginUser.getId()
         ).map(ConversationMapper::mapToConversationDTO);
     }
 

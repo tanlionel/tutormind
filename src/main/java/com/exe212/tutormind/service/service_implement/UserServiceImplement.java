@@ -119,7 +119,7 @@ public class UserServiceImplement implements UserService {
         if (authentication.isAuthenticated()) {
             String username = authentication.getName();
 
-            return userRepository.findByEmail(username);
+            return userRepository.findUserByUsername(username);
         }
 
         return null;

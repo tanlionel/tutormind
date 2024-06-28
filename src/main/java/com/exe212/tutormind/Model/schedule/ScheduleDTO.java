@@ -20,5 +20,5 @@ public class ScheduleDTO {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String dayOfWeek;
 
-    List<ConversationSlotDTO> conversationSlots;
+    List<com.exe212.tutormind.model.schedule.ConversationSlotDTO> conversationSlots;
 }

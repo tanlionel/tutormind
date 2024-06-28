@@ -24,4 +24,7 @@ public interface ProfileRepository extends JpaRepository<Profile, Integer> {
     public Page<Profile> getProfilePagination(Pageable pageable,
                                         @Param("search") String search,
                                         @Param("subjectIdList") List<Integer> subjectIdList);
+
+    @Query("SELECT COUNT(p.id) FROM Profile p")
+    public Integer countAllProfile();
 }

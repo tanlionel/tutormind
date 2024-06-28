@@ -16,4 +16,5 @@ public interface UserRepository extends JpaRepository<User,Integer> {
                                 Integer roleId);
     Page<User> findByRoleNameContainingAndFullNameContaining(String roleName, String search, Pageable pageable);
 
+    public Integer countAllUserByRoleId(Integer roleId);
 }
