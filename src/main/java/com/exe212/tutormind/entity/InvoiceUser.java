@@ -32,10 +32,10 @@ public class InvoiceUser {
     private LocalDateTime createdDate;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "student_id", referencedColumnName = "id", nullable = false)
     private User student;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "tutor_id", referencedColumnName = "id", nullable = false)
     private User tutor;
 }
