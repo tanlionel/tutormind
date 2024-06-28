@@ -36,7 +36,6 @@ public class WalletController {
         return ResponseEntity.ok(
                 walletService.createOrUpdateWalletBallance(userId, wallet.getBallance())
         );
-
     }
 
 }

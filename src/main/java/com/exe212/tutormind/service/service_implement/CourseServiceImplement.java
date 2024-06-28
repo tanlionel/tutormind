@@ -1,12 +1,14 @@
 package com.exe212.tutormind.service.service_implement;
 
 import com.exe212.tutormind.entity.Course;
+import com.exe212.tutormind.entity.CourseUser;
 import com.exe212.tutormind.entity.Lessons;
 import com.exe212.tutormind.entity.User;
 import com.exe212.tutormind.exception.NotFoundException;
 import com.exe212.tutormind.model.DTO.CourseDTO;
 import com.exe212.tutormind.model.DTO.CourseDetailDTO;
 import com.exe212.tutormind.repository.CourseRepository;
+import com.exe212.tutormind.repository.CourseUserRepository;
 import com.exe212.tutormind.repository.LessonsRepository;
 import com.exe212.tutormind.repository.UserRepository;
 import com.exe212.tutormind.service.service_interface.CourseService;
@@ -29,6 +31,8 @@ public class CourseServiceImplement implements CourseService {
     UserRepository userRepository;
     @Autowired
     LessonsRepository lessonsRepository;
+    @Autowired
+    CourseUserRepository courseUserRepository;
     @Override
     public Page<Course> getCourseList(Integer pageNo, Integer pageSize, String search) {
         Pageable pageable = PageRequest.of(pageNo,pageSize).withSort(Sort.by("id").descending());
@@ -87,5 +91,23 @@ public class CourseServiceImplement implements CourseService {
         courseDB.setDescription(course.getDescription());
         courseDB.setSimpleDescription(course.getSimpleDescription());
         return courseRepository.save(courseDB);
+    }
+
+    @Override
+    public CourseUser enrollCourse(Integer courseId, Integer userId) throws NotFoundException {
+        Course course = courseRepository.findById(courseId).orElseThrow(NotFoundException::new);
+        User user = userRepository.findById(userId).orElseThrow(NotFoundException::new);
+        CourseUser courseUser = CourseUser.builder()
+                .student(user)
+                .course(course)
+                .build();
+
+        return courseUserRepository.saveAndFlush(courseUser);
+    }
+
+    @Override
+    public CourseUser getEnrollCourse(Integer courseId, Integer userId) {
+        CourseUser courseUser = courseUserRepository.findCourseUserByCourse_IdAndStudent_Id(courseId,userId);
+        return courseUser;
     }
 }

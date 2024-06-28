@@ -2,6 +2,7 @@ package com.exe212.tutormind.controller;
 
 
 import com.exe212.tutormind.entity.Course;
+import com.exe212.tutormind.entity.CourseUser;
 import com.exe212.tutormind.exception.NotFoundException;
 import com.exe212.tutormind.model.DTO.CourseDTO;
 import com.exe212.tutormind.model.DTO.CourseDetailDTO;
@@ -46,5 +47,18 @@ public class CourseController {
     @PutMapping("{courseId}")
     public Course updateCourse(@PathVariable Integer courseId,@RequestBody CourseDTO course) throws NotFoundException {
         return courseService.updateCourse(courseId,course);
+    }
+
+    @PostMapping("/enroll/{courseId}/{userId}")
+    public ResponseEntity<CourseUser> enrollCourse(@PathVariable Integer courseId,@PathVariable Integer userId) throws NotFoundException {
+        CourseUser courseUser = courseService.enrollCourse(courseId,userId);
+        if (courseUser != null) return ResponseEntity.ok(courseUser);
+        return (ResponseEntity<CourseUser>) ResponseEntity.notFound();
+    }
+    @GetMapping("/enroll/{courseId}/{userId}")
+    public ResponseEntity<CourseUser> getEnrollCourse(@PathVariable Integer courseId, @PathVariable Integer userId) throws NotFoundException {
+        CourseUser courseUser = courseService.getEnrollCourse(courseId,userId);
+        if (courseUser != null) return ResponseEntity.ok(courseUser);
+        return (ResponseEntity<CourseUser>) ResponseEntity.notFound();
     }
 }
