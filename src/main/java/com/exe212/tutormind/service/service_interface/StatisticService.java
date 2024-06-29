@@ -1,6 +1,6 @@
 package com.exe212.tutormind.service.service_interface;
 
-import com.exe212.tutormind.Model.statistic.StatisticDTO;
+import com.exe212.tutormind.model.statistic.StatisticDTO;
 
 import java.time.LocalDate;
 

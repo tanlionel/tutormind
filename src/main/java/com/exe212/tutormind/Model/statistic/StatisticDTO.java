@@ -1,4 +1,4 @@
-package com.exe212.tutormind.Model.statistic;
+package com.exe212.tutormind.model.statistic;
 
 import lombok.*;
 

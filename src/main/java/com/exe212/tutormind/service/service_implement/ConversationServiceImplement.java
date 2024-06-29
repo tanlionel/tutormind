@@ -39,6 +39,10 @@ public class ConversationServiceImplement implements ConversationService {
                                                            String search,
                                                            String SortBy) {
         User loginUser = userService.getLoginUser();
+        if(loginUser.getRole().getId()==1)   return conversationRepository.findAllByTeacherFullNameContaining(
+                PageRequest.of(pageIndex, pageSize, Sort.by(Sort.Order.by("updatedDate")).descending()),
+                search
+        ).map(ConversationMapper::mapToConversationDTO);
 
         return conversationRepository.findAllByTeacherFullNameContainingAndTeacherIdOrUserId(
                 PageRequest.of(pageIndex, pageSize, Sort.by(Sort.Order.by("updatedDate")).descending()),

@@ -1,6 +1,6 @@
 package com.exe212.tutormind.service.service_implement;
 
-import com.exe212.tutormind.Model.statistic.StatisticDTO;
+import com.exe212.tutormind.model.statistic.StatisticDTO;
 import com.exe212.tutormind.entity.Conversation;
 import com.exe212.tutormind.enums.EnumConversationStatus;
 import com.exe212.tutormind.enums.UserRole;

@@ -17,6 +17,8 @@ public interface ConversationRepository extends JpaRepository<Conversation, Inte
                                                                               String teacherFullName,
                                                                               Integer teacherId,
                                                                               Integer userId);
+    Page<Conversation> findAllByTeacherFullNameContaining(Pageable pageable,
+                                                                              String teacherFullName);
     List<Conversation> findAllByTeacherEmailAndConversationStatusId(String teacherEmail,
                                                                     Integer conversationStatusId);
     @Query("SELECT c FROM Conversation c " +
