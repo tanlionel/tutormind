@@ -10,6 +10,7 @@ import com.exe212.tutormind.model.Mapper.UserMapper;
 import com.exe212.tutormind.repository.RoleRepository;
 import com.exe212.tutormind.repository.UserRepository;
 import com.exe212.tutormind.service.service_interface.UserService;
+import com.exe212.tutormind.service.service_interface.WalletService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -34,6 +35,8 @@ public class UserServiceImplement implements UserService {
     private final PasswordEncoder passwordEncoder;
     @Autowired
     private final RoleRepository roleRepository;
+    @Autowired
+    private final WalletService walletService;
     private static final String ACTIVE = "Active";
     private static final String DEACTIVATE = "Deactivate";
     private static final String SORT_ASC = "asc";
@@ -85,7 +88,7 @@ public class UserServiceImplement implements UserService {
     }
 
     @Override
-    public User registerUser(RegisterRequestDTO registerUser) throws RoleDoesNotExistException, UserAlreadyExistsException {
+    public User registerUser(RegisterRequestDTO registerUser) throws Exception {
         boolean isExistUser = userRepository.findByEmail(registerUser.getEmail()) != null;
 
         Optional<Role> existRole = roleRepository.findById(registerUser.getRoleId());
@@ -97,7 +100,7 @@ public class UserServiceImplement implements UserService {
         User user = User.builder()
                 .email(registerUser.getEmail())
                 .username(registerUser.getUsername())
-                .password(passwordEncoder.encode(DEFAULT_PASSWORD))
+                .password(passwordEncoder.encode(registerUser.getPassword()).trim())
                 .fullName(registerUser.getFullName())
                 .phone(registerUser.getPhone())
                 .address(registerUser.getAddress())
@@ -109,6 +112,8 @@ public class UserServiceImplement implements UserService {
                 .build();
 
         User result = userRepository.save(user);
+        walletService.createOrUpdateWalletBallance(result.getId(),0);
+
         return user;
     }
 

@@ -13,7 +13,7 @@ public interface UserService {
     User getUserByUserName(String Username) throws UserDoesNotExistException, InvalidateException;
     User login(String email, String password) throws UserDoesNotExistException, AccountSuspendedException, InvalidateException;
     User getUserById(Integer id) throws Exception;
-    User registerUser(RegisterRequestDTO registerUser) throws RoleDoesNotExistException, UserAlreadyExistsException;
+    User registerUser(RegisterRequestDTO registerUser) throws Exception;
 
     User getLoginUser();
     Page<UserResponseDTO> getUserPageable(Integer pageNo, Integer pageSize, String sortField, String sortOrder, String roleName, String search);
