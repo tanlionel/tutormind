@@ -22,4 +22,5 @@ public class CourseDetailDTO {
     private User tutor;
     private BigDecimal price;
     private List<Lessons> lessonsList;
+    private boolean isEnroll;
 }

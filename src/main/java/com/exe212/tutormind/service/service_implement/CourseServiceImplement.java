@@ -12,6 +12,7 @@ import com.exe212.tutormind.repository.CourseUserRepository;
 import com.exe212.tutormind.repository.LessonsRepository;
 import com.exe212.tutormind.repository.UserRepository;
 import com.exe212.tutormind.service.service_interface.CourseService;
+import com.exe212.tutormind.service.service_interface.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -33,6 +34,8 @@ public class CourseServiceImplement implements CourseService {
     LessonsRepository lessonsRepository;
     @Autowired
     CourseUserRepository courseUserRepository;
+    @Autowired
+    UserService userService;
     @Override
     public Page<Course> getCourseList(Integer pageNo, Integer pageSize, String search) {
         Pageable pageable = PageRequest.of(pageNo,pageSize).withSort(Sort.by("id").descending());
@@ -52,6 +55,11 @@ public class CourseServiceImplement implements CourseService {
     public CourseDetailDTO getCourseByCourseId(Integer courseId) throws NotFoundException {
         Course course = courseRepository.findById(courseId).orElseThrow(NotFoundException::new);
         List<Lessons> lessons = lessonsRepository.findAllByCourse_Id(courseId);
+
+        User loginUser = userService.getLoginUser();
+
+        boolean isEnroll = courseUserRepository.findCourseUserByCourse_IdAndStudent_Id(courseId, loginUser.getId()) != null;
+
         CourseDetailDTO courseDetailDTO = CourseDetailDTO.builder()
                 .id(course.getId())
                 .price(course.getPrice())
@@ -60,7 +68,9 @@ public class CourseServiceImplement implements CourseService {
                 .simpleDescription(course.getSimpleDescription())
                 .description(course.getDescription())
                 .lessonsList(lessons)
+                .isEnroll(isEnroll)
                 .build();
+
         return courseDetailDTO;
     }
 

@@ -24,4 +24,13 @@ public interface ConversationRepository extends JpaRepository<Conversation, Inte
     @Query("SELECT c FROM Conversation c " +
             "WHERE FUNCTION('MONTH', c.createdDate) = :month")
     public List<Conversation> findConversation(@Param("month") int month);
+
+    @Query("SELECT c FROM Conversation c " +
+            "WHERE c.createdDate BETWEEN :startDate AND :endDate")
+    public List<Conversation> findConversationByRange(LocalDateTime startDate,
+                                                      LocalDateTime endDate);
+
+    @Query("SELECT COUNT(c.id) FROM Conversation c " +
+            "WHERE c.conversationStatus.id = :status")
+    public Long countAllConversationByStatus(Integer status);
 }

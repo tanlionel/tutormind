@@ -19,7 +19,7 @@ public class Profile {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @MapsId("userId")
+//    @MapsId("userId")
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;

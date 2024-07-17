@@ -1,13 +1,13 @@
 package com.exe212.tutormind.controller;
 
 import com.exe212.tutormind.service.service_interface.StatisticService;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import jakarta.persistence.JoinColumn;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cglib.core.Local;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 
@@ -21,10 +21,17 @@ public class StatisticController {
 
     @GetMapping
     public ResponseEntity<?> getStatistic() {
-        int month = LocalDate.now().getMonthValue();
 
         return ResponseEntity.ok(
-                statisticService.getStatistic(month)
+                statisticService.getStatistic()
+        );
+    }
+
+    @GetMapping("/revenue-by-range")
+    public ResponseEntity<Long> getRevenueByRange(@RequestParam @JsonFormat(pattern="yyyy-MM-dd") LocalDate startDate,
+                                                  @RequestParam @JsonFormat(pattern="yyyy-MM-dd") LocalDate endDate) {
+        return ResponseEntity.ok(
+                statisticService.getRevenueByRange(startDate, endDate)
         );
     }
 

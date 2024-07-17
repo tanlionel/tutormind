@@ -6,6 +6,7 @@ import com.exe212.tutormind.exception.UserDoesNotExistException;
 import com.exe212.tutormind.model.DTO.UpdateUserRequestDTO;
 import com.exe212.tutormind.model.DTO.UserResponseDTO;
 import com.exe212.tutormind.model.users.UserDTO;
+import com.exe212.tutormind.model.users.UserUpdatePasswordDTO;
 import com.exe212.tutormind.service.service_interface.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,17 @@ public class UserController {
                                               @RequestParam(required = false) String roleName){
         return ResponseEntity.ok(userService.getUserPageable(pageNo,pageSize,sortField,sortOrder,roleName,search));
     }
+
+    @PostMapping("/update-password/{email}")
+    public ResponseEntity<?> updatePassword(@PathVariable String email,
+                                            @RequestBody UserUpdatePasswordDTO updatePasswordDTO) throws Exception {
+
+        return ResponseEntity.ok(
+                userService.updatePassword(email, updatePasswordDTO)
+        );
+
+    }
+
     @PutMapping("/users")
     public ResponseEntity<?> updateUser(@RequestBody UpdateUserRequestDTO updateUserRequestDTO, @RequestParam String email) throws UserDoesNotExistException {
         User user= userService.updateUser(updateUserRequestDTO,email);

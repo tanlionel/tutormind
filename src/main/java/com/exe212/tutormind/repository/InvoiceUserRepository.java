@@ -10,8 +10,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
-import java.util.List;
-import java.util.Optional;
+import java.time.LocalDateTime;
 
 @Repository
 public interface InvoiceUserRepository extends JpaRepository<InvoiceUser,Integer> {
@@ -22,4 +21,9 @@ public interface InvoiceUserRepository extends JpaRepository<InvoiceUser,Integer
     @Query("SELECT SUM(i.price) FROM InvoiceUser i " +
             "WHERE FUNCTION('MONTH', i.createdDate) = :month")
     public Long findInvoiceByDate(@Param("month") int month);
+
+    @Query("SELECT SUM(i.price) FROM InvoiceUser i " +
+            "WHERE i.createdDate BETWEEN :startDate AND :endDate")
+    public Long findSumInvoiceByRange(@Param("startDate") LocalDateTime startDate,
+                                      @Param("endDate") LocalDateTime endDate);
 }

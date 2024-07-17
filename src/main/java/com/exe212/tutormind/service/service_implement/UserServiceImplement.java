@@ -7,6 +7,7 @@ import com.exe212.tutormind.model.DTO.RegisterRequestDTO;
 import com.exe212.tutormind.model.DTO.UpdateUserRequestDTO;
 import com.exe212.tutormind.model.DTO.UserResponseDTO;
 import com.exe212.tutormind.model.Mapper.UserMapper;
+import com.exe212.tutormind.model.users.UserUpdatePasswordDTO;
 import com.exe212.tutormind.repository.RoleRepository;
 import com.exe212.tutormind.repository.UserRepository;
 import com.exe212.tutormind.service.service_interface.UserService;
@@ -19,6 +20,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -42,7 +44,6 @@ public class UserServiceImplement implements UserService {
     private static final String SORT_ASC = "asc";
     private static final String DEFAULT_PASSWORD = "123456";
     private static final int DEFAULT_PASSWORD_LENGTH = 7;
-
 
     @Override
     public User getUserByEmail(String Email) throws UserDoesNotExistException, InvalidateException {
@@ -164,4 +165,22 @@ public class UserServiceImplement implements UserService {
         if (updateUserRequestDTO.getAvatar()!=null) user.setAvatar(updateUserRequestDTO.getAvatar());
         return userRepository.save(user);
     }
+
+    @Override
+    public User updatePassword(String email, UserUpdatePasswordDTO tmp) throws Exception {
+        User user = userRepository.findByEmail(email);
+
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+
+         if (user == null)
+             throw new UserDoesNotExistException();
+
+         if (!encoder.matches(tmp.getOldPassword(), user.getPassword()))
+             throw new Exception("Old password is not correct!");
+
+         user.setPassword(encoder.encode(tmp.getNewPassword()));
+
+         return userRepository.save(user);
+    }
+
 }

@@ -1,4 +1,4 @@
-package com.exe212.tutormind.Model;
+package com.exe212.tutormind.model;
 
 public class Message {
     public static final String msgSuccess = "successfully";

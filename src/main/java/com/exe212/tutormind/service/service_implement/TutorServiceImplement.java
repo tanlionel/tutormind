@@ -143,15 +143,17 @@ public class TutorServiceImplement implements TutorService {
 
         profile = (profile == null) ? new Profile() : profile;
 
+        profile.setUser(User.builder().id(tutor.getId()).build());
+
         profile = Profile.builder()
                 .id(profile.getId())
                 .personalInformation(profileDto.getPersonalInformation())
                 .personalIntroduction(profileDto.getPersonalIntroduction())
                 .ratingPoint(profileDto.getRatingPoint())
-                .user(profile.getUser())
+                .user(tutor)
                 .build();
 
-        profileRepository.saveAndFlush(profile);
+        profileRepository.save(profile);
 
         majorRepository.deleteAllByUserId(tutor.getId());
 
