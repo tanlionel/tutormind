@@ -53,4 +53,11 @@ public class InvoiceUserServiceImpl implements InvoiceUserService {
         Page<InvoiceUserProjection> invoiceUserProjections = invoiceUserRepository.findAllProjectedByTutor_Id(tutorId,pageable);
         return invoiceUserProjections;
     }
+
+    @Override
+    public Page<InvoiceUserProjection> getInvoicePageable(Integer pageNo, Integer pageSize)  {
+        Pageable pageable = PageRequest.of(pageNo,pageSize).withSort(Sort.by("createdDate").descending());
+        Page<InvoiceUserProjection> invoiceUserProjections = invoiceUserRepository.findAllProjected(pageable);
+        return invoiceUserProjections;
+    }
 }

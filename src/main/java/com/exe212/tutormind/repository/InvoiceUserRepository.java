@@ -18,6 +18,9 @@ public interface InvoiceUserRepository extends JpaRepository<InvoiceUser,Integer
     Page<InvoiceUserProjection> findAllProjectedByStudent_Id(Integer id, Pageable pageable);
     Page<InvoiceUserProjection> findAllProjectedByTutor_Id(Integer id,Pageable pageable);
 
+    @Query("SELECT i FROM InvoiceUser i")
+    Page<InvoiceUserProjection> findAllProjected(Pageable pageable);
+
     @Query("SELECT SUM(i.price) FROM InvoiceUser i " +
             "WHERE FUNCTION('MONTH', i.createdDate) = :month")
     public Long findInvoiceByDate(@Param("month") int month);

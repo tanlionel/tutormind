@@ -11,4 +11,6 @@ public interface InvoiceUserService {
     Page<InvoiceUserProjection> getStudentInvoice(Integer studentId,Integer pageNo,Integer pageSize);
 
     Page<InvoiceUserProjection> getTutorInvoice(Integer tutorId,Integer pageNo,Integer pageSize);
+
+    Page<InvoiceUserProjection> getInvoicePageable(Integer pageNo,Integer pageSize) ;
 }

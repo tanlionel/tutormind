@@ -34,4 +34,12 @@ public class InvoiceController {
                                                                @RequestParam(defaultValue = "8") Integer pageSize){
         return invoiceUserService.getTutorInvoice(tutorId,pageNo,pageSize);
     }
+    @GetMapping()
+    public Page<InvoiceUserProjection> getPageableInvoice(
+                                                               @RequestParam(defaultValue = "0") Integer pageNo,
+                                                               @RequestParam(defaultValue = "8") Integer pageSize) {
+        Page<InvoiceUserProjection> userProjections = invoiceUserService.getInvoicePageable(pageNo,pageSize);
+        return userProjections;
+    }
+
 }
